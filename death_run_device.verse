@@ -140,7 +140,7 @@ death_run_device := class(creative_device):
         set Question = Question.NextQuestion()
         ShowMessage(HudQuestion1, "{Question.Num1} × {Question.Num2}")
         ShowMessage(HudLeft, "{Question.LeftOption} 👈")
-        ShowMessage(HudRight, "👉 {Question.RightOption} / 5")
+        ShowMessage(HudRight, "👉 {Question.RightOption}")
 
 
 
