@@ -1,7 +1,6 @@
 
 using { /Fortnite.com/Devices }
 using { /Verse.org/Simulation }
-using { /Verse.org/Random }
 using { /UnrealEngine.com/Temporary/Diagnostics }
 
 # See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
@@ -138,45 +137,7 @@ death_run_device := class(creative_device):
 
     SetQuestion():void =
         set Question = Question.NextQuestion()
-        ShowMessage(HudQuestion1, "{Question.Num1} × {Question.Num2}")
+        ShowMessage(HudQuestion1, Question.QuestionText())
         ShowMessage(HudLeft, "{Question.LeftOption} 👈")
         ShowMessage(HudRight, "👉 {Question.RightOption}")
-
-
-
-question := class:
-    Num1 : int
-    Num2 : int
-    LeftOption : int
-    RightOption : int
-
-    IsRight(): logic =
-        if(Num1 * Num2 = RightOption):
-            true
-        else:
-            false
-        
-        
-    Validate(Selected: int) : logic = 
-        if(Num1 * Num2 = Selected):
-            true
-        else:
-            false
-
-    NextQuestion(): question =
-        LeftVal: int = GetRandomInt(1, 9)
-        RightVal: int = GetRandomInt(1, 9)
-        Correct: int = LeftVal * RightVal
-        var Wrong: int = -1
-        loop:
-            set Wrong = Correct + GetRandomInt(-5, 5)
-            if (not Wrong = Correct and Wrong > 0):
-                break
-        Options: []int = Shuffle(array {Correct, Wrong})
-
-        var NewQ: question = question{Num1 := 1, Num2:= 1, LeftOption:= 1, RightOption:= 2}
-        if (Left:int = Options[0]):
-            if(Right:int = Options[1]):
-                set NewQ = question{Num1 := LeftVal, Num2:= RightVal, LeftOption:= Left, RightOption:= Right}
-        return NewQ
 
