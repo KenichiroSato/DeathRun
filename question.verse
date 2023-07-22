@@ -1,34 +1,33 @@
 
 using { /Verse.org/Random }
 
-question := class:
+q := interface():
+    IsRight() : logic
+    Text(): string
+    LeftText(): string
+    RightText(): string
+
+# Used just for initial value
+null_q := class(q):
+    IsRight<override>(): logic = true
+    Text<override>(): string = ""
+    LeftText<override>(): string = ""
+    RightText<override>(): string = ""
+
+multiplication_q := class(q):
     Num1 : int
     Num2 : int
     LeftOption : int
     RightOption : int
 
-    IsRight(): logic =
+    IsRight<override>(): logic =
         if(Num1 * Num2 = RightOption):
             true
         else:
             false
 
-    QuestionText(): string = "{Num1} × {Num2}"
-        
-    NextQuestion(): question =
-        LeftVal: int = GetRandomInt(1, 19)
-        RightVal: int = GetRandomInt(1, 19)
-        Correct: int = LeftVal * RightVal
-        var Wrong: int = -1
-        loop:
-            set Wrong = Correct + GetRandomInt(-5, 5)
-            if (not Wrong = Correct and Wrong > 0):
-                break
-        Options: []int = Shuffle(array {Correct, Wrong})
+    Text<override>(): string = "{Num1} × {Num2}"
 
-        var NewQ: question = question{Num1 := 1, Num2:= 1, LeftOption:= 1, RightOption:= 2}
-        if (Left:int = Options[0]):
-            if(Right:int = Options[1]):
-                set NewQ = question{Num1 := LeftVal, Num2:= RightVal, LeftOption:= Left, RightOption:= Right}
-        return NewQ
+    LeftText<override>(): string = "{LeftOption}"
 
+    RightText<override>(): string = "{RightOption}"

@@ -72,7 +72,8 @@ death_run_device := class(creative_device):
     @editable HudRight : hud_message_device = hud_message_device{}
     @editable HudLeft : hud_message_device = hud_message_device{}
 
-    var Question:question = question{Num1 := 0, Num2:= 0, LeftOption:= 0, RightOption:= 0}
+    QuestionFactory<private>: question_factory = question_factory{}
+    var Question<private>:q = null_q{}
     
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
@@ -127,7 +128,6 @@ death_run_device := class(creative_device):
     OnQuestionTriggerd(MaybeAgent: ?agent) : void =
         SetQuestion()
 
-    
     ShowMessage(Device: hud_message_device, Message: string) : void =
         Device.Hide()
         Device.SetText(StringToMessage(Message))
@@ -136,8 +136,8 @@ death_run_device := class(creative_device):
     StringToMessage<localizes>(value:string) : message = "{value}"
 
     SetQuestion():void =
-        set Question = Question.NextQuestion()
-        ShowMessage(HudQuestion1, Question.QuestionText())
-        ShowMessage(HudLeft, "{Question.LeftOption} 👈")
-        ShowMessage(HudRight, "👉 {Question.RightOption}")
+        set Question = QuestionFactory.Create()
+        ShowMessage(HudQuestion1, Question.Text())
+        ShowMessage(HudLeft, "{Question.LeftText()} 👈")
+        ShowMessage(HudRight, "👉 {Question.RightText()}")
 
