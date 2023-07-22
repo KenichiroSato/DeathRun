@@ -31,3 +31,23 @@ multiplication_q := class(q):
     LeftText<override>(): string = "{LeftOption}"
 
     RightText<override>(): string = "{RightOption}"
+
+fraction_q := class(q):
+    LeftNumerator: int
+    LeftDenominator: int
+    RightNumerator: int
+    RightDenominator: int
+
+    IsRight<override>(): logic =
+        if (Floor(LeftNumerator * 100 / LeftDenominator) < Floor(RightNumerator * 100 / RightDenominator)):
+            true
+        else:
+            false
+
+    Text<override>(): string = "どっちが大きい？"
+
+    LeftText<override>(): string = "{LeftNumerator} / {LeftDenominator}"
+
+    RightText<override>(): string = "{RightNumerator} / {RightDenominator}"
+
+    
