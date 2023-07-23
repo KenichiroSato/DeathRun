@@ -27,9 +27,7 @@ multiplication_q := class(q):
             false
 
     Text<override>(): string = "{Num1} × {Num2}"
-
     LeftText<override>(): string = "{LeftOption}"
-
     RightText<override>(): string = "{RightOption}"
 
 fraction_q := class(q):
@@ -45,9 +43,7 @@ fraction_q := class(q):
             false
 
     Text<override>(): string = "どっちが大きい？"
-
     LeftText<override>(): string = "{LeftNumerator} / {LeftDenominator}"
-
     RightText<override>(): string = "{RightNumerator} / {RightDenominator}"
 
     

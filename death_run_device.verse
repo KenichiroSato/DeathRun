@@ -67,19 +67,13 @@ death_run_device := class(creative_device):
     var LeftTriggerList:[]trigger_device = array {}
     var QuestionTriggerList:[]trigger_device = array {}
 
-
-    @editable HudQuestion1 : hud_message_device = hud_message_device{}
-    @editable HudRight : hud_message_device = hud_message_device{}
-    @editable HudLeft : hud_message_device = hud_message_device{}
+    @editable UiMessageDevice: ui_message_device = ui_message_device{}
 
     QuestionFactory<private>: question_factory = question_factory{}
     var Question<private>:q = null_q{}
     
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
-        # TODO: Replace this with your code
-        Print("Hello, world!")
-        Print("2 + 2 = {2 + 2}")
         set RightMoverList = array { RightMover1, RightMover2, RightMover3, RightMover4, RightMover5, RightMover6, RightMover7, RightMover8, RightMover9, RightMover10 }
         set LeftMoverList = array { LeftMover1, LeftMover2, LeftMover3, LeftMover4, LeftMover5, LeftMover6, LeftMover7, LeftMover8, LeftMover9, LeftMover10 }
         set RightTriggerList = array {RightTrigger1, RightTrigger2, RightTrigger3, RightTrigger4, RightTrigger5, RightTrigger6, RightTrigger7, RightTrigger8, RightTrigger9, RightTrigger10}
@@ -104,9 +98,7 @@ death_run_device := class(creative_device):
                 Element.TriggeredEvent.Subscribe(OnLeftTrigger)
 
     HideHudMessage():void =
-        HudQuestion1.Hide()
-        HudLeft.Hide()
-        HudRight.Hide()
+        UiMessageDevice.HideMessage()
 
     OnRightTrigger(MaybeAgent: ?agent) : void =
         HideHudMessage()
@@ -126,18 +118,5 @@ death_run_device := class(creative_device):
                 Element.Advance()
 
     OnQuestionTriggerd(MaybeAgent: ?agent) : void =
-        SetQuestion()
-
-    ShowMessage(Device: hud_message_device, Message: string) : void =
-        Device.Hide()
-        Device.SetText(StringToMessage(Message))
-        Device.Show()
-
-    StringToMessage<localizes>(value:string) : message = "{value}"
-
-    SetQuestion():void =
         set Question = QuestionFactory.Create()
-        ShowMessage(HudQuestion1, Question.Text())
-        ShowMessage(HudLeft, "{Question.LeftText()} 👈")
-        ShowMessage(HudRight, "👉 {Question.RightText()}")
-
+        UiMessageDevice.ShowQuestion(Question)
