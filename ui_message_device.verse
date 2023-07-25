@@ -12,6 +12,8 @@ ui_message_device := class(creative_device):
     @editable HudRight : hud_message_device = hud_message_device{}
     @editable HudLeft : hud_message_device = hud_message_device{}
 
+    @editable BestTime : hud_message_device = hud_message_device{}
+
     # Runs when the device is started in a running game
     #OnBegin<override>()<suspends>:void =
         # Print("2 + 2 = {2 + 2}")
@@ -32,3 +34,6 @@ ui_message_device := class(creative_device):
         ShowMessage(HudQuestion, Question.Text())
         ShowMessage(HudLeft, "{Question.LeftText()} 👈")
         ShowMessage(HudRight, "👉 {Question.RightText()}")
+
+    ShowBestTime(Time: string):void =
+        ShowMessage(BestTime, Time)
