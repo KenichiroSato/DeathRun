@@ -20,8 +20,6 @@ best_time_device := class(creative_device):
         # TODO: Replace this with your code
         RightTrigger.TriggeredEvent.Subscribe(OnFinished)
         LeftTrigger.TriggeredEvent.Subscribe(OnFinished)
-        Print("Hello, world!")
-        Print("2 + 2 = {2 + 2}")
 
     OnFinished(MaybeAgent: ?agent) : void =
         Time:float = Timer.GetActiveDuration()

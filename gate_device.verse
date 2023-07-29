@@ -33,14 +33,20 @@ gate_device := class(creative_device):
     OnRightTrigger(MaybeAgent: ?agent) : void =
         HideHudMessage()
         IsRightCorrect:=Question.IsRight()
-        if (not IsRightCorrect?):
+        if (IsRightCorrect?):
+            UiMessageDevice.ShowCorrect()
+        else:
             RightMover.Advance()
+            UiMessageDevice.ShowWrong()
 
     OnLeftTrigger(MaybeAgent: ?agent) : void =
         HideHudMessage()
         IsRightCorrect:=Question.IsRight()
         if (IsRightCorrect?):
             LeftMover.Advance()
+            UiMessageDevice.ShowWrong()
+        else:
+            UiMessageDevice.ShowCorrect()
 
     OnQuestionTriggerd(MaybeAgent: ?agent) : void =
         set Question = QuestionFactory.Create()
